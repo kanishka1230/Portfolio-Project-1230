@@ -1,100 +1,73 @@
-# 🌐 Kanishka Sarangdhar – Portfolio Website
+# React + TypeScript + Vite
 
-This repository contains the source code for **Kanishka Sarangdhar's personal portfolio website**. The portfolio is designed to showcase skills, projects, certifications, and professional experience in a clean and modern web interface.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 🚀 Project Overview
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-The project is a frontend web application built using modern web technologies. It uses a root HTML file that mounts a JavaScript/TypeScript-based frontend (likely React with Vite) into the DOM.
+## React Compiler
 
-The portfolio serves as:
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-* A personal branding website
-* A showcase of projects and certifications
-* A digital resume
+## Expanding the ESLint configuration
 
----
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## 🛠️ Tech Stack
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-* **HTML5** – Base structure
-* **TypeScript** – Strongly typed JavaScript
-* **React** – Component-based UI (inferred)
-* **Vite** – Fast build tool and dev server (inferred)
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
----
-
-## 📂 Project Structure (Key Files)
-
-```
-index.html          # Entry HTML file
-src/
- ├── main.tsx       # Application entry point
- └── ...            # Components, styles, assets
-```
-
-* `index.html` contains the root div where the app is rendered.
-* `main.tsx` bootstraps the frontend application.
-
----
-
-## ▶️ Getting Started
-
-### 1️⃣ Prerequisites
-
-Make sure you have the following installed:
-
-* **Node.js** (v16+ recommended)
-* **npm** or **yarn**
-
-### 2️⃣ Install Dependencies
-
-```bash
-npm install
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-### 3️⃣ Run the Development Server
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```bash
-npm run dev
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-Open your browser and navigate to:
-
-```
-http://localhost:5173
-```
-
----
-
-## 📦 Build for Production
-
-```bash
-npm run build
-```
-
-The optimized production files will be generated in the `dist/` folder.
-
----
-
-## ✨ Features
-
-* Responsive portfolio layout
-* Clean and minimal UI
-* Easy to customize
-* Fast performance using Vite
-
----
-
-## 📌 Customization
-
-To personalize the portfolio:
-
-* Edit components inside the `src/` folder
-* Update content such as name, skills, and projects
-* Modify styles to match your personal branding
-
----
-
-
